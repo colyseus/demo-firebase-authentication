@@ -1,4 +1,4 @@
-# Colyseus + Firebase auth client
+# Colyseus + Firebase Auth Client
 
 ### Steps to configure the client
 

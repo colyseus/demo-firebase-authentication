@@ -1,28 +1,24 @@
-import { getAuth } from "firebase-admin/auth";
+import { DecodedIdToken, getAuth } from "firebase-admin/auth";
+import { Room, Client } from "colyseus";
 
-import { Room, Client, ServerError } from "colyseus";
-import { IncomingMessage } from "http";
-import { GameState, Player } from "./schema/MyRoomState";
+import { MyRoomState, Player } from "./schema/MyRoomState";
 
-export class MyRoom extends Room<GameState> {
-
-  async onAuth(client: Client, options: any, request?: IncomingMessage) {
-    try {
-      return await getAuth().verifyIdToken(options.accessToken);
-    } catch(e) {
-      throw new ServerError(400, "bad access token");
-    }
-  }
+export class MyRoom extends Room<MyRoomState> {
 
   onCreate (options: any) {
-    this.setState(new GameState());
+    this.setState(new MyRoomState());
+    console.log("room", this.roomId, "created!");
   }
 
-  onJoin (client: Client, options: any) {
+  async onAuth(client: Client, options: any) {
+    return await getAuth().verifyIdToken(options.accessToken);
+  }
+
+  onJoin (client: Client, options: any, authData: DecodedIdToken) {
     const player = new Player();
-    player.accessToken = options.accessToken;
-    this.state.players.set(client.sessionId,player);
-    
+    player.uid = authData.uid;
+
+    this.state.players.set(client.sessionId, player);
     console.log(client.sessionId, "joined!");
   }
 

@@ -2,10 +2,9 @@
   "name": "client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
   "scripts": {
-    "serve": "browser-sync start --server .",
-    "build": "webpack --mode production"
+    "start": "parcel serve index.html",
+    "build": "parcel build index.html --public-url ./"
   },
   "repository": {
     "type": "git",
@@ -18,14 +17,11 @@
   },
   "homepage": "https://github.com/GA-MO/html-boilerplate#readme",
   "devDependencies": {
-    "browser-sync": "^2.27.11",
-    "html-loader": "^4.2.0",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "wepback": "^1.0.0"
+    "parcel": "^2.9.3",
+    "process": "^0.11.10"
   },
   "dependencies": {
-    "colyseus.js": "^0.14.13",
-    "firebase": "^9.15.0"
+    "colyseus.js": "^0.15.10",
+    "firebase": "^9.23.0"
   }
 }
