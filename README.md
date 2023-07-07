@@ -4,8 +4,8 @@ Requirements:
 
 - [Create a Firebase App](https://firebase.google.com/docs/web/setup#create-project)
 - Add "Anonymous" and "Email/Password" as Authentication providers on Firebase:
-	- "Firebase Console" > "Authentication" > "Sign-in method" > "Anonymous" > Enable
-	- "Firebase Console" > "Authentication" > "Sign-in method" > "Email/Password" > Enable
+	- Firebase Console > Authentication > Sign-in method > Anonymous > Enable
+	- Firebase Console > Authentication > Sign-in method > Email/Password > Enable
 - Configure both client and server with the Firebase App credentials, as documented below
 
 ![](firebase-auth-screenshot.png)
