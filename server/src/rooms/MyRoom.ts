@@ -1,7 +1,14 @@
+import firebaseAdmin from "firebase-admin";
 import { DecodedIdToken, getAuth } from "firebase-admin/auth";
-import { Room, Client } from "colyseus";
+import { applicationDefault } from "firebase-admin/app";
 
+import { Room, Client } from "colyseus";
 import { MyRoomState, Player } from "./schema/MyRoomState";
+
+/**
+ * Initialize 'firebase-admin'
+ */
+firebaseAdmin.initializeApp({ credential: applicationDefault() });
 
 export class MyRoom extends Room<MyRoomState> {
 

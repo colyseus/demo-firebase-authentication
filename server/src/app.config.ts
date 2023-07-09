@@ -2,10 +2,6 @@ import config from "@colyseus/tools";
 import { monitor } from "@colyseus/monitor";
 import { playground } from "@colyseus/playground";
 
-// Firebase
-import { applicationDefault } from "firebase-admin/app";
-import * as firebaseAdmin from "firebase-admin";
-
 /**
  * Import your Room files
  */
@@ -14,12 +10,6 @@ import { MyRoom } from "./rooms/MyRoom";
 export default config({
 
     initializeGameServer: (gameServer) => {
-        /**
-         * Initialize 'firebase-admin'
-         */
-        firebaseAdmin.initializeApp({
-            credential: applicationDefault()
-        });
 
         /**
          * Define your room handlers:
