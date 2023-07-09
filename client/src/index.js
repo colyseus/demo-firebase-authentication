@@ -7,7 +7,7 @@ const client = new Colyseus.Client('ws://localhost:2567');
 async function loginAnonymously() {
   const userCredential = await signInAnonymously(auth);
 
-  return await client.joinOrCreate('my_room', {
+  return await client.joinOrCreate('my_room_firebase', {
     accessToken: userCredential.user.accessToken
   });
 }
@@ -15,7 +15,7 @@ async function loginAnonymously() {
 async function loginWithEmailAndPassword(email, password) {
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-  return await client.joinOrCreate('my_room', {
+  return await client.joinOrCreate('my_room_firebase', {
     accessToken: userCredential.user.accessToken
   });
 }
