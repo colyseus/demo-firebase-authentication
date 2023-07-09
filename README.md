@@ -1,6 +1,13 @@
 # Colyseus + Firebase Auth Demo
 
-Requirements:
+**Quick reference:**
+
+- [Setting-up 'firebase-admin' on the server](https://github.com/colyseus/demo-firebase-authentication/blob/main/server/src/rooms/MyRoom.ts#L11)
+- [Providing Firebase's `accessToken` from client-side to the server-side](https://github.com/colyseus/demo-firebase-authentication/blob/main/client/src/index.js#L20-L24)
+- [Verifying token provided by client on the server-side](https://github.com/colyseus/demo-firebase-authentication/blob/main/server/src/rooms/MyRoom.ts#L20-L22)
+- [Accessing authenticated user's data on the server-side](https://github.com/colyseus/demo-firebase-authentication/blob/main/server/src/rooms/MyRoom.ts#L26)
+
+**Requirements:**
 
 - [Create a Firebase App](https://firebase.google.com/docs/web/setup#create-project)
 - Add "Anonymous" and "Email/Password" as Authentication providers on Firebase:
