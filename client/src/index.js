@@ -29,7 +29,7 @@ async function logout () {
   hideElement('#room');
 }
 
-async function upgradeAccountToPermanent(email, password) {
+async function linkAccountCredentials(email, password) {
   try {
     const credential = EmailAuthProvider.credential(email, password);
     const userCredential = await linkWithCredential(auth.currentUser, credential)
@@ -78,14 +78,14 @@ window.onLogoutBtnClick = function () {
   hideElement('#logout');
 }
 
-window.onUpgradeAccountBtnClick = async function() {
+window.onLinkCredentialsBtnClick = async function() {
   toggleDisabled('#convertAccBtn');
 
   const email = document.querySelector('#convertAcc input[name=email]').value;
   const password = document.querySelector('#convertAcc input[name=password]').value;
 
   try {
-    await upgradeAccountToPermanent(email, password);
+    await linkAccountCredentials(email, password);
     document.getElementById('convertAcc').innerText = "Account successfully upgraded! (" + email + ")";
 
   } catch (e) {
