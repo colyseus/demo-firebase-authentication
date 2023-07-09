@@ -86,7 +86,8 @@ window.onLinkCredentialsBtnClick = async function() {
 
   try {
     await linkAccountCredentials(email, password);
-    document.getElementById('convertAcc').innerText = "Account successfully upgraded! (" + email + ")";
+    hideErrors();
+    document.getElementById('convertAcc').innerText = "Account successfully linked! (" + email + ")";
 
   } catch (e) {
     displayError(e);
