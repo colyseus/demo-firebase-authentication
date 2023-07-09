@@ -48,6 +48,7 @@ window.onLoginBtnClick = async function () {
 
   try {
     room = await loginAnonymously();
+    hideErrors();
     hideElement('#login');
 
     room.onStateChange(() => {
@@ -103,6 +104,7 @@ window.onLoginWithEmailAndPassword = async function() {
 
   try {
     const room = await loginWithEmailAndPassword(email, password);
+    hideErrors();
     hideElement('#login');
 
     room.onStateChange(() => {
@@ -129,6 +131,10 @@ function displayError(e) {
   document.querySelector(errorSelector).innerHTML = innerHTML;
 
   showElement(errorSelector);
+}
+
+function hideErrors() {
+  hideElement("#errors");
 }
 
 function toggleDisabled(buttonSelector) {
