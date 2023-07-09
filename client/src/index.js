@@ -2,7 +2,11 @@ import * as Colyseus from "colyseus.js";
 import { EmailAuthProvider, linkWithCredential, signInAnonymously, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "./firebase";
 
-const client = new Colyseus.Client('ws://localhost:2567');
+const IS_LOCAL = (window.location.hostname === "localhost");
+
+const client = (IS_LOCAL)
+  ? new Colyseus.Client('ws://localhost:2567')
+  : new Colyseus.Client('https://colyseus-demos.onrender.com/');
 
 async function loginAnonymously() {
   const userCredential = await signInAnonymously(auth);
