@@ -1,14 +1,22 @@
 import * as Colyseus from "colyseus.js";
-import { EmailAuthProvider, linkWithCredential, signInAnonymously, signOut } from "firebase/auth";
+import { EmailAuthProvider, linkWithCredential, signInAnonymously, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "./firebase";
 
 const client = new Colyseus.Client('ws://localhost:2567');
 
 async function loginAnonymously() {
-  const authResponse = await signInAnonymously(auth);
+  const userCredential = await signInAnonymously(auth);
 
   return await client.joinOrCreate('my_room', {
-    accessToken: authResponse.user.accessToken
+    accessToken: userCredential.user.accessToken
+  });
+}
+
+async function loginWithEmailAndPassword(email, password) {
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+  return await client.joinOrCreate('my_room', {
+    accessToken: userCredential.user.accessToken
   });
 }
 
@@ -68,19 +76,45 @@ window.onLogoutBtnClick = function () {
 window.onUpgradeAccountBtnClick = async function() {
   toggleDisabled('#convertAccBtn');
 
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  const email = document.querySelector('#convertAcc input[name=email]').value;
+  const password = document.querySelector('#convertAcc input[name=password]').value;
 
   try {
     await upgradeAccountToPermanent(email, password);
-    hideElement('#convertAcc');
+    document.getElementById('convertAcc').innerText = "Account successfully upgraded! (" + email + ")";
 
   } catch (e) {
-    // do nothing...
+    displayError(e);
 
   } finally {
     toggleDisabled('#convertAccBtn');
   }
+}
+
+window.onLoginWithEmailAndPassword = async function() {
+  toggleDisabled('#loginEmailPasswordBtn');
+
+  const email = document.querySelector('#loginEmailPassword input[name=email]').value;
+  const password = document.querySelector('#loginEmailPassword input[name=password]').value;
+
+  try {
+    const room = await loginWithEmailAndPassword(email, password);
+    hideElement('#login');
+
+    room.onStateChange(() => {
+      showElement('#room');
+      document.querySelector("#room").innerHTML = "<pre>" + JSON.stringify(room.state, null, 2) + "</pre>";
+    });
+
+    showElement('#logout');
+
+  } catch (e) {
+    displayError(e);
+
+  } finally {
+    toggleDisabled('#loginEmailPasswordBtn');
+  }
+
 }
 
 function displayError(e) {

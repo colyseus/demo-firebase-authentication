@@ -28,24 +28,54 @@
                 <img src="https://firebase.google.com/static/downloads/brand-guidelines/PNG/logo-standard.png" height="50">
             </div>
 
-            <div class="text-center col-md-6 m-auto">
-                <form id="login">
-                    <button type="submit" id="loginBtn" type="button" class="btn btn-primary mt-4" onClick="onLoginBtnClick()">Anonymous Login</button>
-                </form>
+            <div class="text-center col-md-8 m-auto">
+                  <div class="container">
+                    <p>This example uses Firebase authentication in the client-side and provide <code>user.accessToken</code> as argument when joining the room.</p>
+                    <p>The server validates the token at <code>MyRoom.onAuth()</code>.</p>
+                    <div id="login" class="row">
+                      <div class="col-md-6 align-self-center">
 
-                <form id="convertAcc" class="d-none" width="20%">
-                    <div class="form-group mt-2">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email">
-                    </div>
-                    <div class="form-group mt-2">
-                        <label for="password">Password</label>
-                        <input type="text" class="form-control" id="password">
-                    </div>
-                    <button type="submit" id="convertAccBtn" type="button" class="btn btn-primary mt-3" onClick="onUpgradeAccountBtnClick()">Upgrade To Permanent Account</button>
-                </form>
+                        <form class="block">
+                            <button type="submit" id="loginBtn" type="button" class="btn btn-primary mt-4" onClick="onLoginBtnClick()">Anonymous Login</button>
+                        </form>
 
-                <form id="logout" class="d-none">
+                      </div>
+                      <div class="col-md-6 pt-4">
+
+                        <!-- Login with email/password -->
+                        <form id="loginEmailPassword" class="block">
+                            <div class="mb-3">
+                                <label for="email" class="form-label w-25 text-end pe-2">Email</label>
+                                <input type="text" class="form-control d-inline w-50" name="email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label w-25 text-end pe-2">Password</label>
+                                <input type="text" class="form-control d-inline w-50" name="password">
+                            </div>
+
+                            <button type="submit" id="loginEmailPasswordBtn" type="button" class="btn btn-primary mt-3" onClick="onLoginWithEmailAndPassword()">Login with Email/Password</button>
+                        </form>
+
+                      </div>
+                    </div>
+
+                    <!-- Upgrade form -->
+                    <form id="convertAcc" class="d-none">
+                        <div class="mb-3">
+                            <label for="email" class="form-label w-25 text-end pe-2">Email</label>
+                            <input type="text" class="form-control d-inline w-50" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label w-25 text-end pe-2">Password</label>
+                            <input type="text" class="form-control d-inline w-50" name="password">
+                        </div>
+                        <button type="submit" id="convertAccBtn" type="button" class="btn btn-primary mt-3" onClick="onUpgradeAccountBtnClick()">Upgrade To Permanent Account</button>
+                    </form>
+                  </div>
+
+                </div>
+
+                <form id="logout" class="d-none text-center">
                     <div class="form-group">
                         <button type="submit" id="logoutBtn" type="button" class="btn btn-danger mt-3" onClick="onLogoutBtnClick()">Logout</button>
                     </div>
@@ -53,7 +83,9 @@
 
                 <!-- alerts -->
                 <div id="errors" class="d-none alert alert-danger mt-4" role="alert"></div>
-                <div id="room" class="d-none alert alert-info mt-4 text-start"></div>
+
+                <h4 class="mt-5">Room State</h4>
+                <div id="room" class="alert alert-info mt-4 text-start">(Not connected)</div>
 
             </div>
         </div>
